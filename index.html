@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>siri</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+        <input type="text" id="myspeech" placeholder="enter any text">
+        <button onclick="speack()">speack</button>
+    </div>
+
+    <script>
+        function speack(){
+            var texttoSpecack = document.getElementById("myspeech").value;
+            var speechSensor1 = window.speechSynthesis;
+            var utterance = new SpeechSynthesisUtterance(texttoSpecack);
+            // utterance.voice = "female"
+            speechSensor1.speak(utterance)
+        }
+    </script>
+</body>
+</html>

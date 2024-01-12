@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /*bs*/
+}
+body{
+    align-items: center; /*al*/
+    justify-content: center; /*jcc*/
+    display: flex;
+    min-height: 100vh;
+    background-image: linear-gradient(yellow, green);
+}
+.card{
+    padding: 10px;
+    background-color: aliceblue;
+    border-radius: 10px;
+}

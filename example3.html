@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+    .container{
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #4b4a4a;
+        padding: 30px;
+        overflow: hidden;
+        background: url(https://th.bing.com/th/id/R.f48ceff9ab3322d4e84ed12a44c484d1?rik=0KQ6OgL4T%2b9uCA&riu=http%3a%2f%2fwww.photo-paysage.com%2falbums%2fuserpics%2f10001%2fCascade_-15.JPG&ehk=kx1JjE9ugj%2bZvUIrjzSmcnslPc7NE1cOnZdra%2f3pJEM%3d&risl=1&pid=ImgRaw&r=0) no-repeat;
+        background-size: cover;
+
+    }
+    .controls{
+        position: absolute;
+        width: 100%;
+        /* position: relative; */
+        bottom: 50px;
+        left: 0px;
+    }
+    .container video{
+        width: 100%;
+        height: 90vh;
+        border-radius: 30px;
+    }
+    .container video{
+        width: 100vh;
+        height: 100vh;
+    }
+    .main{
+        display: flex;
+        justify-content:center;
+        width: 100%;
+        gap: 30px;
+    }
+    button:nth-child(2){
+        width: 100px;
+        height: 100px;
+        background-color: #fff;
+        outline: 10px solid #fff;
+        outline-offset: 10px;
+        border-radius: 100px;
+        border: none;
+    }
+    button:nth-child(1){
+        width: 80px;
+        height: 80px;
+        background-color: #535252;
+        outline: 2px solid #fff;
+        outline-offset: 2px;
+        border: none;
+        border-radius: 100px;
+        /* background: url(https://th.bing.com/th/id/R.f48ceff9ab3322d4e84ed12a44c484d1?rik=0KQ6OgL4T%2b9uCA&riu=http%3a%2f%2fwww.photo-paysage.com%2falbums%2fuserpics%2f10001%2fCascade_-15.JPG&ehk=kx1JjE9ugj%2bZvUIrjzSmcnslPc7NE1cOnZdra%2f3pJEM%3d&risl=1&pid=ImgRaw&r=0); */
+    }
+    button:nth-child(3){
+        width: 80px;
+        height: 80px;
+        background-color: #535252;
+        outline: 2px solid #fff;
+        outline-offset: 2px;
+        border: none;
+        border-radius: 100px;
+        /* background: url(https://th.bing.com/th/id/R.f48ceff9ab3322d4e84ed12a44c484d1?rik=0KQ6OgL4T%2b9uCA&riu=http%3a%2f%2fwww.photo-paysage.com%2falbums%2fuserpics%2f10001%2fCascade_-15.JPG&ehk=kx1JjE9ugj%2bZvUIrjzSmcnslPc7NE1cOnZdra%2f3pJEM%3d&risl=1&pid=ImgRaw&r=0); */
+    }
+    button i{
+        font-size: 40px;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <video id="camara" controls> </video>
+        <div class="controls">
+            <div class="main">
+                <button><i class="fa-solid fa-image"></i></button>
+                <button onclick="captureImage()"><i class="fa-solid fa-video"></i></button>
+                <button><i class="fa-solid fa-camera"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        navigator.mediaDevices.getUserMedia({video:true})
+        .then(function (strem) {
+            var video = document.getElementById('camara');
+            video.srcObject = strem;
+        })
+        .catch(function(err){
+            console.log('error accesing your camara')
+        });
+        function captureImage(){
+            var video = document.getElementById('camara');
+            var canvas = document.createElement('canvas');
+            //settig canvas with and height same link video width and video height 
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHight;
+            //assing 2d canvas to contact variable
+            var context = canvas.getContext('2d')
+            //creating a 2d image to in canvas
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            //creating canvas to image path or url or image address
+            var capturedImage = canvas.toDataURL('image/png');
+
+            var name = prompt('enter your file name =')
+            // creating anker tag downlod the image
+            var downoadLink = document.createElement('a');
+            downoadLink.href = capturedImage;
+            downoadLink.download = `${name}.png`;
+
+            document.body.appendChild(downoadLink);
+            downoadLink.click();
+            alert('downloded');
+            document.removeChild(downoadLink);
+        }
+    </script>
+</body>
+</html>
